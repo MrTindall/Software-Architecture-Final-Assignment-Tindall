@@ -8,6 +8,7 @@ import edu.wctc.Moves.LightAttack.Punch;
 public class Peasant extends CharacterClass {
 
     public Peasant() {
+        this.name = "Peasant";
         lightAttack = new Punch();
         heavyAttack = new Kick();
         defendStrategy = new ArmBlock();

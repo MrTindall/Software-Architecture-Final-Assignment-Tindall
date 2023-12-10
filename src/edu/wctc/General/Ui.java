@@ -27,12 +27,12 @@ public class Ui {
             System.out.println("If Invalid or Null = Peasant");
 
 
-            char answer = keyboard.nextLine().charAt(0);
+            String answer = keyboard.nextLine();
             switch (answer) {
-                case 1: return new Archer();
-                case 2: return new Mage();
-                case 3: return new Paladin();
-                case 4: return new Peasant();
+                case "1": return new Archer();
+                case "2": return new Mage();
+                case "3": return new Paladin();
+                case "4": return new Peasant();
             }
             return new Peasant();
     }

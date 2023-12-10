@@ -6,13 +6,13 @@ import edu.wctc.Model.Interfaces.LightAttack;
 
 public class CharacterClass{
 
+    public String name;
     public LightAttack lightAttack;
     public HeavyAttack heavyAttack;
     public DefendStrategy defendStrategy;
 
 
     public CharacterClass() {
-        super();
     }
 
     public int tryLightAttack() {
@@ -37,6 +37,10 @@ public class CharacterClass{
 
     public void setDefendStrategy(DefendStrategy newDefendStrategy) {
         defendStrategy = newDefendStrategy;
+    }
+
+    public String getName(){
+        return name;
     }
 
 }

@@ -43,6 +43,10 @@ public class Game {
 
     private void performRound(Character characterA, Character characterB) {
 
+        System.out.println();
+        System.out.println(characterA.getCharacterClass().getName() + " " + characterA.getName() + " HP: " + characterA.getHealth());
+        System.out.println(characterB.getCharacterClass().getName() + " " + characterB.getName() + " HP: " + characterB.getHealth());
+
 
         int characterAMove= 0;
         int characterBMove = 0;
@@ -72,8 +76,11 @@ public class Game {
             System.out.println("0 Damage done");
         }
         else {
-            characterA.setHealth(characterA.getHealth() - characterAMove);
-            characterA.setHealth(characterB.getHealth() - characterBMove);
+            characterA.setHealth(characterA.getHealth() - characterBMove);
+            characterB.setHealth(characterB.getHealth() - characterAMove);
+
+            System.out.println(characterA.getName() + " took " + characterBMove);
+            System.out.println(characterB.getName() + " took " + characterAMove);
         }
 
     }
