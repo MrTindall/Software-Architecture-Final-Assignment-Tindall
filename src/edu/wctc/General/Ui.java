@@ -29,12 +29,12 @@ public class Ui {
 
             char answer = keyboard.nextLine().charAt(0);
             switch (answer) {
-                case 1: return new Archer("default");
-                case 2: return new Mage("default");
-                case 3: return new Paladin("default");
-                case 4: return new Peasant("default");
+                case 1: return new Archer();
+                case 2: return new Mage();
+                case 3: return new Paladin();
+                case 4: return new Peasant();
             }
-            return new Peasant("default");
+            return new Peasant();
     }
 
     public String getMove() {
