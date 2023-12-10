@@ -7,8 +7,7 @@ import edu.wctc.Moves.LightAttack.Shock;
 
 public class Mage extends CharacterClass {
 
-    public Mage(String name) {
-        super(name);
+    public Mage() {
         lightAttack = new Shock();
         heavyAttack = new Fireball();
         defendStrategy = new Staffblock();

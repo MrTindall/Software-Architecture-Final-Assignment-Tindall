@@ -7,8 +7,7 @@ import edu.wctc.Moves.LightAttack.QuickShot;
 
 public class Archer extends CharacterClass {
 
-    public Archer(String name) {
-        super(name);
+    public Archer() {
         lightAttack = new QuickShot();
         heavyAttack = new HardDraw();
         defendStrategy = new DiveRoll();

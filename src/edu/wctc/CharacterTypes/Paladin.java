@@ -7,8 +7,7 @@ import edu.wctc.Moves.LightAttack.Cut;
 
 public class Paladin extends CharacterClass {
 
-    public Paladin(String name) {
-        super(name);
+    public Paladin() {
         lightAttack = new Cut();
         heavyAttack = new Stab();
         defendStrategy = new ShieldBlock();
