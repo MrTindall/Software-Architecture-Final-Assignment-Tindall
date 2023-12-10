@@ -29,15 +29,15 @@ public class Ui {
 
             char answer = keyboard.nextLine().charAt(0);
             switch (answer) {
-                case 1: return new Archer();
-                case 2: return new Mage();
-                case 3: return new Paladin();
-                case 4: return new Peasant();
+                case 1: return new Archer("default");
+                case 2: return new Mage("default");
+                case 3: return new Paladin("default");
+                case 4: return new Peasant("default");
             }
-            return new Peasant();
+            return new Peasant("default");
     }
 
-    public Moves getMove(CharacterClass characterClass) {
+    public String getMove() {
         System.out.println("Available actions:");
         System.out.println("1 = lightAttack");
         System.out.println("2 = heavyAttack");
@@ -46,13 +46,13 @@ public class Ui {
         char answer = keyboard.nextLine().charAt(0);
         while(true){
             if (answer == '1') {
-                return characterClass.lightAttack;
+                return "1";
             }
             else if (answer == '2') {
-                return characterClass.heavyAttack;
+                return "2";
             }
             else if (answer == '3') {
-                return characterClass.defendStrategy;
+                return "3";
             }
             else {
                 System.out.println("Invalid Input");

@@ -2,13 +2,16 @@ package edu.wctc.General;
 
 import edu.wctc.Model.Classes.Character;
 import edu.wctc.Model.Classes.CharacterClass;
+import edu.wctc.Model.Interfaces.Moves;
 
+import java.util.Random;
 import java.util.Scanner;
 
 
 public class Game {
     private static Game instance;
     private Scanner keyboard;
+    Ui ui = new Ui();
 
     private Game(){
         keyboard = new Scanner(System.in);
@@ -25,11 +28,8 @@ public class Game {
 
     public void fight(Character a, Character b) {
         while (a.isAlive() && b.isAlive()) {
-            displayOptions(); // Display available actions
-            String actionA = getUserInput("Player A, choose your action: ");
-            String actionB = getUserInput("Player B, choose your action: ");
 
-            performRound(a, b, actionA, actionB); // Execute the round based on player actions
+            performRound(a, b); // Execute the round based on player actions
         }
 
         // Determine the winner after the fight ends
@@ -41,20 +41,48 @@ public class Game {
     }
 
 
+    private void performRound(Character characterA, Character characterB) {
 
-    private String getUserInput(String prompt) {
-        System.out.print(prompt);
-        return keyboard.nextLine().trim().toLowerCase(); // Get user input for action
+
+        int characterAMove= 0;
+        int characterBMove = 0;
+
+        String actionA = ui.getMove();
+
+        // Character A's action
+        if (actionA.equals("1")) {
+            characterAMove = characterB.getCharacterClass().lightAttack.lightAttack();
+        } else if (actionA.equals("2")) {
+            characterAMove = characterB.getCharacterClass().heavyAttack.heavyAttack();
+        } else if (actionA.equals("3")) {
+            characterAMove = characterB.getCharacterClass().defendStrategy.defendStrategy(characterBMove);
+        }
+
+        // Character B's action (AI action)
+        String actionB = generateRandomAction();
+        if (actionB.equals("1")) {
+           characterBMove = characterB.getCharacterClass().lightAttack.lightAttack();
+        } else if (actionB.equals("2")) {
+            characterBMove = characterB.getCharacterClass().heavyAttack.heavyAttack();
+        } else if (actionB.equals("3")) {
+            characterBMove = characterB.getCharacterClass().defendStrategy.defendStrategy(characterAMove);
+        }
+        if (actionA == "3" && actionB == "3")
+        {
+            System.out.println("0 Damage done");
+        }
+        else {
+            characterA.setHealth(characterA.getHealth() - characterAMove);
+            characterA.setHealth(characterB.getHealth() - characterBMove);
+        }
+
     }
 
-//    private void performRound(Character attacker, Character defender, String attackerAction, String defenderAction) {
-//        // Logic for a single combat round based on player actions
-//        if (attackerAction.equals("1")) {
-//            attacker.lightAttack(defender);
-//        } else if (attackerAction.equals("2")) {
-//            attacker.heavyAttack(defender);
-//        } else if (attackerAction.equals("3")) {
-//            attacker.defendStrategy();
-//        }
-//    }
+
+    private String generateRandomAction() {
+            Random random = new Random();
+            int randomAction = random.nextInt(3) + 1;
+            return String.valueOf(randomAction);
+    }
 }
+

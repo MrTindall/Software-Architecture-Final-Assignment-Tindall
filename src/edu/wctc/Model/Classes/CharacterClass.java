@@ -4,13 +4,15 @@ import edu.wctc.Model.Interfaces.DefendStrategy;
 import edu.wctc.Model.Interfaces.HeavyAttack;
 import edu.wctc.Model.Interfaces.LightAttack;
 
-public class CharacterClass extends Character{
+public class CharacterClass{
+
     public LightAttack lightAttack;
     public HeavyAttack heavyAttack;
     public DefendStrategy defendStrategy;
 
-    public CharacterClass(String name) {
-        super(name);
+
+    public CharacterClass() {
+        super();
     }
 
     public int tryLightAttack() {
