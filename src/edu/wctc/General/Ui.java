@@ -38,20 +38,22 @@ public class Ui {
     }
 
     public String getMove() {
-        System.out.println("Available actions:");
-        System.out.println("1 = lightAttack");
-        System.out.println("2 = heavyAttack (Skip Next Turn");
-        System.out.println("3 = defendStrategy");
 
-        char answer = keyboard.nextLine().charAt(0);
         while(true){
-            if (answer == '1') {
+            System.out.println("Available actions:");
+            System.out.println("1 = lightAttack");
+            System.out.println("2 = heavyAttack (Skip Next Turn");
+            System.out.println("3 = defendStrategy");
+
+            String answer = keyboard.nextLine();
+
+            if (answer.equals("1")) {
                 return "1";
             }
-            else if (answer == '2') {
+            else if (answer.equals("2")) {
                 return "2";
             }
-            else if (answer == '3') {
+            else if (answer.equals("3")) {
                 return "3";
             }
             else {

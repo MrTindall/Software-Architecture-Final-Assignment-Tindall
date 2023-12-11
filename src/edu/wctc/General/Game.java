@@ -69,14 +69,13 @@ public class Game {
         if(characterBUsedHeavyAttack == true)
         {
             characterBUsedHeavyAttackCount++;
-            System.out.println(characterB.getName() + " used a heavy attack. Next turn skipped.\n");
         }
         if(characterAUsedHeavyAttackCount == 1)
         {
             characterAUsedHeavyAttackCount = 0;
             characterAUsedHeavyAttack = false;
         }
-        if(characterBUsedHeavyAttackCount == 1)
+        if(characterBUsedHeavyAttackCount == 2)
         {
             characterBUsedHeavyAttackCount = 0;
             characterBUsedHeavyAttack = false;
@@ -86,8 +85,7 @@ public class Game {
 
 // Character A's action
         if (characterAUsedHeavyAttack == true) {
-
-
+            System.out.println(characterB.getName() + " used a heavy attack. Next turn skipped.\n");
         } else {
             if (actionA.equals("1")) {
                 characterAMove = characterA.getCharacterClass().lightAttack.lightAttack();
