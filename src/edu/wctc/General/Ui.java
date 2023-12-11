@@ -40,7 +40,7 @@ public class Ui {
     public String getMove() {
         System.out.println("Available actions:");
         System.out.println("1 = lightAttack");
-        System.out.println("2 = heavyAttack");
+        System.out.println("2 = heavyAttack (Skip Next Turn");
         System.out.println("3 = defendStrategy");
 
         char answer = keyboard.nextLine().charAt(0);

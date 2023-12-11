@@ -42,28 +42,51 @@ public class Game {
 
     boolean characterAUsedHeavyAttack = false;
     boolean characterBUsedHeavyAttack = false;
+    int characterAUsedHeavyAttackCount = 0;
+    int characterBUsedHeavyAttackCount = 0;
 
     private void performRound(Character characterA, Character characterB) {
 
         System.out.println();
+        System.out.println("================================");
         System.out.println(characterA.getCharacterClass().getName() + " " + characterA.getName() + " HP: " + characterA.getHealth());
         System.out.println(characterB.getCharacterClass().getName() + " " + characterB.getName() + " HP: " + characterB.getHealth());
 
 
         int characterAMove = 0;
         int characterBMove = 0;
+        String actionA = "";
+
         if(characterAUsedHeavyAttack == true){
+            characterAUsedHeavyAttackCount++;
+            System.out.println(characterA.getName() + " used a heavy attack. Next turn skipped.\n");
+            System.out.print("Press Enter To continue");
+            keyboard.nextLine();
+        } else {
+            actionA = ui.getMove(); // Get action for Character A
+        }
+
+        if(characterBUsedHeavyAttack == true)
+        {
+            characterBUsedHeavyAttackCount++;
+            System.out.println(characterB.getName() + " used a heavy attack. Next turn skipped.\n");
+        }
+        if(characterAUsedHeavyAttackCount == 1)
+        {
+            characterAUsedHeavyAttackCount = 0;
             characterAUsedHeavyAttack = false;
         }
-        if(characterBUsedHeavyAttack == true){
+        if(characterBUsedHeavyAttackCount == 1)
+        {
+            characterBUsedHeavyAttackCount = 0;
             characterBUsedHeavyAttack = false;
         }
 
-        String actionA = ui.getMove(); // Get action for Character A
+
 
 // Character A's action
         if (characterAUsedHeavyAttack == true) {
-            System.out.println(characterB.getName() + " used a heavy attack. Next turn skipped.");
+
 
         } else {
             if (actionA.equals("1")) {
@@ -80,7 +103,7 @@ public class Game {
 // Character B's action (AI action)
         String actionB = generateRandomAction(); // Get AI action for Character B
         if(characterBUsedHeavyAttack == true) {
-            System.out.println(characterA.getName() + " used a heavy attack. Next turn skipped.");
+            System.out.println(characterB.getName() + " used a heavy attack. Next turn skipped.");
         } else {
             if (actionB.equals("1")) {
                 characterBMove = characterB.getCharacterClass().lightAttack.lightAttack();
@@ -99,14 +122,27 @@ public class Game {
             System.out.println("0 Damage done");
         } else if (actionA.equals("3") && !actionB.equals("3")) {
             System.out.println(characterA.getName() + " Defended");
+            if(actionB.equals("1")){
+                System.out.println(characterB.getName() + " Light Attacked");
+
+            } else {
+                System.out.println(characterB.getName() + " Heavy Attacked");
+                System.out.println(characterB.getName() + " Next Turn Will Be Skipped");
+            }
             System.out.println(characterB.getName() + " Attacked");
 
-            characterBMove = characterB.getCharacterClass().defendStrategy.defendStrategy(characterBMove);
+            characterBMove = characterA.getCharacterClass().defendStrategy.defendStrategy(characterBMove);
         } else if (!actionA.equals("3") && actionB.equals("3")) {
-            System.out.println(characterA.getName() + " Attacked");
             System.out.println(characterB.getName() + " Defended");
+            if(actionB.equals("1")){
+                System.out.println(characterA.getName() + " Light Attacked");
 
-            characterAMove = characterA.getCharacterClass().defendStrategy.defendStrategy(characterAMove);
+            } else {
+                System.out.println(characterA.getName() + " Heavy Attacked");
+                System.out.println(characterA.getName() + " Next Turn Will Be Skipped");
+            }
+
+            characterAMove = characterB.getCharacterClass().defendStrategy.defendStrategy(characterAMove);
         }
 
 // Deduct health based on the moves
