@@ -40,6 +40,8 @@ public class Game {
         }
     }
 
+    boolean characterAUsedHeavyAttack = false;
+    boolean characterBUsedHeavyAttack = false;
 
     private void performRound(Character characterA, Character characterB) {
 
@@ -48,40 +50,74 @@ public class Game {
         System.out.println(characterB.getCharacterClass().getName() + " " + characterB.getName() + " HP: " + characterB.getHealth());
 
 
-        int characterAMove= 0;
+        int characterAMove = 0;
         int characterBMove = 0;
-
-        String actionA = ui.getMove();
-
-        // Character A's action
-        if (actionA.equals("1")) {
-            characterAMove = characterB.getCharacterClass().lightAttack.lightAttack();
-        } else if (actionA.equals("2")) {
-            characterAMove = characterB.getCharacterClass().heavyAttack.heavyAttack();
-        } else if (actionA.equals("3")) {
-            characterAMove = characterB.getCharacterClass().defendStrategy.defendStrategy(characterBMove);
+        if(characterAUsedHeavyAttack == true){
+            characterAUsedHeavyAttack = false;
+        }
+        if(characterBUsedHeavyAttack == true){
+            characterBUsedHeavyAttack = false;
         }
 
-        // Character B's action (AI action)
-        String actionB = generateRandomAction();
-        if (actionB.equals("1")) {
-           characterBMove = characterB.getCharacterClass().lightAttack.lightAttack();
-        } else if (actionB.equals("2")) {
-            characterBMove = characterB.getCharacterClass().heavyAttack.heavyAttack();
-        } else if (actionB.equals("3")) {
-            characterBMove = characterB.getCharacterClass().defendStrategy.defendStrategy(characterAMove);
+        String actionA = ui.getMove(); // Get action for Character A
+
+// Character A's action
+        if (characterAUsedHeavyAttack == true) {
+            System.out.println(characterB.getName() + " used a heavy attack. Next turn skipped.");
+
+        } else {
+            if (actionA.equals("1")) {
+                characterAMove = characterA.getCharacterClass().lightAttack.lightAttack();
+            } else if (actionA.equals("2")) {
+                characterAMove = characterA.getCharacterClass().heavyAttack.heavyAttack();
+                characterAUsedHeavyAttack = true; // Set heavy attack flag for Character A
+            } else if (actionA.equals("3")) {
+                characterAMove = 0; // Character A is defending
+            }
         }
-        if (actionA == "3" && actionB == "3")
-        {
+
+
+// Character B's action (AI action)
+        String actionB = generateRandomAction(); // Get AI action for Character B
+        if(characterBUsedHeavyAttack == true) {
+            System.out.println(characterA.getName() + " used a heavy attack. Next turn skipped.");
+        } else {
+            if (actionB.equals("1")) {
+                characterBMove = characterB.getCharacterClass().lightAttack.lightAttack();
+            } else if (actionB.equals("2")) {
+                characterBMove = characterB.getCharacterClass().heavyAttack.heavyAttack();
+                characterBUsedHeavyAttack = true; // Set heavy attack flag for Character A
+            } else if (actionB.equals("3")) {
+                characterBMove = 0; // Character B is defending
+            }
+        }
+
+
+// Check different combinations of actions and apply defend strategy
+        if (actionA.equals("3") && actionB.equals("3")) {
+            System.out.println("Both Defended");
             System.out.println("0 Damage done");
-        }
-        else {
-            characterA.setHealth(characterA.getHealth() - characterBMove);
-            characterB.setHealth(characterB.getHealth() - characterAMove);
+        } else if (actionA.equals("3") && !actionB.equals("3")) {
+            System.out.println(characterA.getName() + " Defended");
+            System.out.println(characterB.getName() + " Attacked");
 
-            System.out.println(characterA.getName() + " took " + characterBMove);
-            System.out.println(characterB.getName() + " took " + characterAMove);
+            characterBMove = characterB.getCharacterClass().defendStrategy.defendStrategy(characterBMove);
+        } else if (!actionA.equals("3") && actionB.equals("3")) {
+            System.out.println(characterA.getName() + " Attacked");
+            System.out.println(characterB.getName() + " Defended");
+
+            characterAMove = characterA.getCharacterClass().defendStrategy.defendStrategy(characterAMove);
         }
+
+// Deduct health based on the moves
+        characterA.setHealth(characterA.getHealth() - characterBMove);
+        characterB.setHealth(characterB.getHealth() - characterAMove);
+
+// Display the impact of the moves on health
+        System.out.println();
+        System.out.println(characterA.getCharacterClass().getName() + " " + characterA.getName() + " took " + characterBMove + " damage.");
+        System.out.println(characterB.getCharacterClass().getName() + " " + characterB.getName() + " took " + characterAMove + " damage.");
+
 
     }
 
