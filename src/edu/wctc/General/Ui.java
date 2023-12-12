@@ -5,7 +5,6 @@ import edu.wctc.CharacterTypes.Mage;
 import edu.wctc.CharacterTypes.Paladin;
 import edu.wctc.CharacterTypes.Peasant;
 import edu.wctc.Model.Classes.CharacterClass;
-import edu.wctc.Model.Interfaces.Moves;
 
 import java.util.Scanner;
 
@@ -13,11 +12,13 @@ public class Ui {
 
     Scanner keyboard = new Scanner(System.in);
 
+    // Get name from user for the characters
     public String getName() {
         System.out.print("Please enter Player's Name: ");
         return keyboard.nextLine();
     }
 
+    // Get character class from user input
     public CharacterClass getCharacterClass() {
             System.out.println("Available actions:");
             System.out.println("1 = Archer");
@@ -37,6 +38,7 @@ public class Ui {
             return new Peasant();
     }
 
+    // Get user input for move selection
     public String getMove() {
 
         while(true){

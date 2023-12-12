@@ -7,6 +7,7 @@ import edu.wctc.Moves.LightAttack.QuickShot;
 
 public class Archer extends CharacterClass {
 
+    // Archer Class
     public Archer() {
         this.name = "Archer";
         lightAttack = new QuickShot();

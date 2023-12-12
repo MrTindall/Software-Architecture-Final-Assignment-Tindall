@@ -7,6 +7,7 @@ import edu.wctc.Moves.LightAttack.Cut;
 
 public class Paladin extends CharacterClass {
 
+    // Paladin Class
     public Paladin() {
         this.name = "Paladin";
         lightAttack = new Cut();

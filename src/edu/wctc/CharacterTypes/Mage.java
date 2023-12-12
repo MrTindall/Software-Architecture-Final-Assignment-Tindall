@@ -7,6 +7,7 @@ import edu.wctc.Moves.LightAttack.Shock;
 
 public class Mage extends CharacterClass {
 
+    // Mage Class
     public Mage() {
         this.name = "Mage";
         lightAttack = new Shock();
